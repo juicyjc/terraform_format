@@ -28,6 +28,13 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: TF Lint
+        id: tflint
+        uses: reviewdog/action-tflint@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          tflint_rulesets: "azurerm"
+
       - name: Update Pull Request
         uses: actions/github-script@0.9.0
         with:

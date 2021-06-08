@@ -4,6 +4,6 @@ variable "filename" {
 variable "content" {
   default = "Hello World!"
 }
-variable "unused" {
+variable unused {
   default = "I'm all alone in the world!"
 }
