@@ -1,9 +1,9 @@
-variable filename {
+variable "filename" {
   default = "hello_local_file.txt"
 }
-variable content {
+variable "content" {
   default = "Hello World!"
 }
-variable unused {
+variable "unused" {
   default = "I'm all alone in the world!"
 }
