@@ -1,9 +1,9 @@
 variable "filename" {
-  type = "string"
+  type = string
   default = "hello_local_file.txt"
 }
 variable "content" {
-  type = "string"
+  type = string
   default = "Hello World!"
 }
 // Bad comment
