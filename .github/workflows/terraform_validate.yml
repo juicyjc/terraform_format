@@ -18,7 +18,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check -recursive
-        # continue-on-error: true
 
       - name: Terraform Init
         id: init
@@ -34,9 +33,6 @@ jobs:
         with:
           tflint_version: v0.29.0
 
-      - name: Init TFLint
-        run: tflint --init
-
       - name: Run TFLint
         run: tflint -f compact
           --enable-rule=terraform_deprecated_index
@@ -50,21 +46,3 @@ jobs:
           --enable-rule=terraform_required_providers
           --enable-rule=terraform_unused_required_providers
           --enable-rule=terraform_standard_module_structure
-
-      # - name: Update Pull Request
-      #   uses: actions/github-script@0.9.0
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     script: |
-      #       const output = `#### Terraform Format and Style \`${{ steps.fmt.outcome }}\`
-      #       #### Terraform Initialization \`${{ steps.init.outcome }}\`
-      #       #### Terraform Validation \`${{ steps.validate.outputs.stdout }}\`
-
-      #       *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-
-      #       github.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: output
-      #       })

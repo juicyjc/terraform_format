@@ -8,4 +8,9 @@ output "content" {
 }
 output "output_no_description" {
   value = "I have no description :("
+  description = "Oh yes I do!"
+}
+output "unused" {
+  value = var.unused
+  description = "A previously unused comment"
 }

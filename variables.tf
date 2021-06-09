@@ -6,7 +6,8 @@ variable "content" {
   type    = string
   default = "Hello World!"
 }
-// Bad comment
+# Good comment
 variable "unused" {
+  type    = string
   default = "I'm all alone in the world!"
 }
