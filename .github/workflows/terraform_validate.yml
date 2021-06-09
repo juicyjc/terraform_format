@@ -1,0 +1,48 @@
+name: 'Terraform'
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+
+      - name: Setup TFLint
+        id: tflint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: v0.29.0
+
+      - name: Run TFLint
+        run: tflint -f default
+          --enable-rule=terraform_deprecated_index
+          --enable-rule=terraform_unused_declarations
+          --enable-rule=terraform_comment_syntax
+          --enable-rule=terraform_documented_outputs
+          --enable-rule=terraform_documented_variables
+          --enable-rule=terraform_typed_variables
+          --enable-rule=terraform_naming_convention
+          --enable-rule=terraform_required_version
+          --enable-rule=terraform_required_providers
+          --enable-rule=terraform_unused_required_providers
+          --enable-rule=terraform_standard_module_structure
