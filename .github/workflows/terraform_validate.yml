@@ -28,12 +28,21 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: TF Lint
+      - name: Setup TFLint
         id: tflint
-        uses: reviewdog/action-tflint@master
+        uses: terraform-linters/setup-tflint@v1
         with:
-          github_token: ${{ secrets.github_token }}
+          tflint_version: v0.29.0
           tflint_rulesets: "azurerm"
+
+      - name: Show version
+        run: tflint --version
+
+      - name: Init TFLint
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint -f compact
 
       - name: Update Pull Request
         uses: actions/github-script@0.9.0
