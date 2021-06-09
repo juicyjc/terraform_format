@@ -1,13 +1,6 @@
-terraform {
-  required_version = "> 0.7.0"
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 0.13"
-    }
-  }
+provider "aws" {
+  region = "us-east-1"
 }
-resource "local_file" "hello_local_file" {
-  content  = var.content
-  filename = var.filename
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
 }
