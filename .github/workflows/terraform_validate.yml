@@ -25,7 +25,7 @@ jobs:
 
       - name: Terraform Validate
         id: validate
-        run: terraform validate -no-color
+        run: terraform validate
 
       - name: Setup TFLint
         id: tflint
@@ -34,7 +34,7 @@ jobs:
           tflint_version: v0.29.0
 
       - name: Run TFLint
-        run: tflint -f compact
+        run: tflint -f default
           --enable-rule=terraform_deprecated_index
           --enable-rule=terraform_unused_declarations
           --enable-rule=terraform_comment_syntax
