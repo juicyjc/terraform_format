@@ -5,8 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  terraform:
-    name: "Terraform"
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,3 +45,19 @@ jobs:
           --enable-rule=terraform_required_providers
           --enable-rule=terraform_unused_required_providers
           --enable-rule=terraform_standard_module_structure
+  
+  Generate_Terraform_Docs:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Render terraform docs
+      uses: terraform-docs/gh-actions@v0.6.1
+      with:
+        working-dir: .
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
